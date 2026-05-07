@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kokoda Ridge Guesthouse — Papua New Guinea</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --jungle: #1a2e1a;
+    --deep: #0d1a0d;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --mist: #f0ece4;
+    --bark: #6b4f3a;
+    --sky: #7aafc9;
+    --cream: #faf7f0;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Josefin Sans', sans-serif;
+    background: var(--cream);
+    color: var(--jungle);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 3rem;
+    background: linear-gradient(to bottom, rgba(13,26,13,0.85), transparent);
+    transition: background 0.4s;
+  }
+  nav.scrolled { background: rgba(13,26,13,0.97); }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 300; letter-spacing: 0.1em;
+    color: var(--gold-light); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--mist); font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; text-decoration: none; opacity: 0.85;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold-light); }
+  .nav-book {
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    padding: 0.5rem 1.2rem;
+    opacity: 1 !important;
+  }
+  .nav-book:hover { background: var(--gold); color: var(--deep) !important; }
+
+  /* HERO */
+  .hero {
+    height: 100vh; position: relative;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(160deg, rgba(13,26,13,0.3) 0%, rgba(13,26,13,0.7) 100%),
+      url('https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=1600&q=80') center/cover no-repeat;
+    transform: scale(1.05);
+    animation: slowZoom 20s ease-in-out infinite alternate;
+  }
+  @keyframes slowZoom {
+    from { transform: scale(1.05); }
+    to { transform: scale(1.12); }
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,26,13,0.9) 0%, transparent 60%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 3rem 5rem;
+    max-width: 700px;
+    animation: fadeUp 1.2s ease forwards;
+    opacity: 0;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tag {
+    font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-tag::before {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 300; line-height: 1.05;
+    color: var(--mist); margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold-light); }
+  .hero p {
+    font-size: 0.8rem; letter-spacing: 0.12em; line-height: 1.9;
+    color: rgba(240,236,228,0.75); max-width: 480px; margin-bottom: 2.5rem;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--deep);
+    padding: 1rem 2.5rem; font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    border: 1px solid rgba(240,236,228,0.4); color: var(--mist);
+    padding: 1rem 2.5rem; font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    text-decoration: none; transition: border-color 0.3s, background 0.3s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; right: 3rem; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(240,236,228,0.4); font-size: 0.6rem; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+  .scroll-hint::after {
+    content: ''; display: block; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
+  }
+
+  /* STATS STRIP */
+  .stats {
+    background: var(--deep);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+  .stat-item {
+    padding: 2rem; text-align: center;
+    border-right: 1px solid rgba(201,168,76,0.1);
+    animation: fadeUp 0.8s ease forwards; opacity: 0;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem; font-weight: 300; color: var(--gold);
+  }
+  .stat-label {
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(240,236,228,0.45); margin-top: 0.3rem;
+  }
+
+  /* ABOUT */
+  .about {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 80vh;
+  }
+  .about-image {
+    position: relative; overflow: hidden;
+    background: url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=900&q=80') center/cover;
+    min-height: 500px;
+  }
+  .about-image::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(26,46,26,0.3), transparent);
+  }
+  .about-image-accent {
+    position: absolute; bottom: 2rem; left: 2rem; z-index: 2;
+    background: var(--gold); padding: 1rem 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-style: italic; color: var(--deep);
+  }
+  .about-text {
+    background: var(--jungle); padding: 6rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .section-tag {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-tag::before {
+    content: ''; display: block; width: 30px; height: 1px; background: var(--gold);
+  }
+  .about-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 300;
+    color: var(--mist); line-height: 1.2; margin-bottom: 1.5rem;
+  }
+  .about-text h2 em { font-style: italic; color: var(--gold-light); }
+  .about-text p {
+    font-size: 0.75rem; letter-spacing: 0.08em; line-height: 2;
+    color: rgba(240,236,228,0.6); margin-bottom: 1rem;
+  }
+  .about-text .btn-primary { margin-top: 1.5rem; align-self: flex-start; }
+
+  /* ROOMS */
+  .rooms { padding: 7rem 3rem; background: var(--cream); }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300;
+    color: var(--jungle); margin: 1rem 0 0.5rem;
+  }
+  .section-header h2 em { font-style: italic; color: var(--bark); }
+  .section-header p {
+    font-size: 0.72rem; letter-spacing: 0.1em; line-height: 1.9;
+    color: rgba(26,46,26,0.55); max-width: 500px; margin: 0 auto;
+  }
+  .rooms-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .room-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    aspect-ratio: 3/4;
+  }
+  .room-card:first-child { grid-row: span 2; aspect-ratio: auto; }
+  .room-img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .room-card:hover .room-img { transform: scale(1.06); }
+  .room-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(13,26,13,0.92) 0%, transparent 100%);
+    padding: 3rem 2rem 2rem;
+    transform: translateY(20px); opacity: 0;
+    transition: transform 0.4s, opacity 0.4s;
+  }
+  .room-card:hover .room-info { transform: translateY(0); opacity: 1; }
+  .room-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 400; color: var(--mist);
+    margin-bottom: 0.3rem;
+  }
+  .room-info .price {
+    font-size: 0.65rem; letter-spacing: 0.2em; color: var(--gold);
+    text-transform: uppercase;
+  }
+  .room-tag {
+    position: absolute; top: 1.5rem; left: 1.5rem;
+    background: var(--gold); color: var(--deep);
+    font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+  }
+
+  /* EXPERIENCES */
+  .experiences {
+    background: var(--deep); padding: 7rem 3rem;
+  }
+  .exp-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    max-width: 1200px; margin: 4rem auto 0;
+  }
+  .exp-card {
+    border: 1px solid rgba(201,168,76,0.15); padding: 2.5rem 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .exp-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 100%; height: 2px; background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .exp-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-4px); }
+  .exp-card:hover::before { transform: scaleX(1); }
+  .exp-icon { font-size: 2rem; margin-bottom: 1.5rem; }
+  .exp-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 400; color: var(--mist);
+    margin-bottom: 0.8rem;
+  }
+  .exp-card p {
+    font-size: 0.7rem; letter-spacing: 0.07em; line-height: 1.9;
+    color: rgba(240,236,228,0.45);
+  }
+
+  /* TESTIMONIALS */
+  .testimonials { padding: 7rem 3rem; background: var(--mist); }
+  .test-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    max-width: 1100px; margin: 4rem auto 0;
+  }
+  .test-card {
+    background: white; padding: 3rem 2.5rem;
+    border-bottom: 3px solid var(--gold);
+    box-shadow: 0 4px 30px rgba(26,46,26,0.06);
+  }
+  .test-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .test-card blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-style: italic; font-weight: 300;
+    line-height: 1.7; color: var(--jungle); margin-bottom: 1.5rem;
+  }
+  .test-author { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--bark); }
+
+  /* CONTACT / BOOKING */
+  .booking {
+    background: var(--jungle); padding: 7rem 3rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; max-width: 1200px; margin: 0 auto;
+    align-items: center;
+  }
+  .booking-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 300;
+    color: var(--mist); margin: 1rem 0 1.5rem;
+  }
+  .booking-text h2 em { font-style: italic; color: var(--gold-light); }
+  .booking-text p {
+    font-size: 0.72rem; letter-spacing: 0.08em; line-height: 2;
+    color: rgba(240,236,228,0.55); margin-bottom: 2rem;
+  }
+  .contact-details { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(240,236,228,0.6);
+  }
+  .contact-item span:first-child { color: var(--gold); font-size: 1rem; }
+  .booking-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-field {
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .form-field label {
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(240,236,228,0.45);
+  }
+  .form-field input, .form-field select {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--mist); padding: 0.9rem 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.75rem; letter-spacing: 0.05em;
+    outline: none; transition: border-color 0.3s;
+    width: 100%;
+  }
+  .form-field input:focus, .form-field select:focus {
+    border-color: var(--gold);
+  }
+  .form-field select option { background: var(--jungle); }
+  .booking-form .btn-primary { margin-top: 0.5rem; width: 100%; text-align: center; }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep); padding: 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 300; color: var(--gold-light);
+  }
+  .footer-text {
+    font-size: 0.6rem; letter-spacing: 0.15em; color: rgba(240,236,228,0.3);
+    text-transform: uppercase;
+  }
+  .footer-credit {
+    font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(201,168,76,0.5);
+  }
+
+  /* SCROLL ANIMATIONS */
+  .reveal { opacity: 0; transform: translateY(25px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero-content { padding: 0 1.5rem 4rem; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .about { grid-template-columns: 1fr; }
+    .about-text { padding: 3rem 2rem; }
+    .rooms-grid { grid-template-columns: 1fr; }
+    .room-card:first-child { grid-row: auto; }
+    .exp-grid { grid-template-columns: repeat(2, 1fr); }
+    .test-grid { grid-template-columns: 1fr; }
+    .booking { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Kokoda Ridge</a>
+  <ul class="nav-links">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#rooms">Accommodation</a></li>
+    <li><a href="#experiences">Experiences</a></li>
+    <li><a href="#booking" class="nav-book">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Papua New Guinea · Highlands Region</div>
+    <h1>Where the <em>jungle</em><br>meets the sky</h1>
+    <p>Nestled in the mist-covered highlands of Papua New Guinea, Kokoda Ridge Guesthouse offers an authentic escape into one of the world's last great wildernesses.</p>
+    <div class="hero-cta">
+      <a href="#booking" class="btn-primary">Reserve Your Stay</a>
+      <a href="#experiences" class="btn-ghost">Explore Experiences</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item reveal">
+    <div class="stat-num">12</div>
+    <div class="stat-label">Unique Bungalows</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">8</div>
+    <div class="stat-label">Guided Experiences</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">1,800m</div>
+    <div class="stat-label">Above Sea Level</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">4.9★</div>
+    <div class="stat-label">Guest Rating</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-image">
+    <div class="about-image-accent">"The real Papua New Guinea"</div>
+  </div>
+  <div class="about-text reveal">
+    <div class="section-tag">Our Story</div>
+    <h2>Born from the <em>land,</em><br>built for the journey</h2>
+    <p>Kokoda Ridge was founded by a local PNG family with one vision — to share the breathtaking beauty of the Highlands with the world, without losing what makes it sacred.</p>
+    <p>Every bungalow is hand-built using traditional materials. Every meal is sourced from our garden or local village markets. Every guide is a community member who has walked these trails since childhood.</p>
+    <p>This is not a resort. This is Papua New Guinea — raw, real, and unforgettable.</p>
+    <a href="#booking" class="btn-primary">Plan Your Visit</a>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="rooms" id="rooms">
+  <div class="section-header reveal">
+    <div class="section-tag" style="justify-content:center;">Accommodation</div>
+    <h2>Sleep beneath the <em>stars</em></h2>
+    <p>Each of our 12 bungalows is uniquely designed, blending traditional PNG craftsmanship with the comforts modern travellers expect.</p>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card">
+      <img class="room-img" src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=800&q=80" alt="Jungle Suite">
+      <div class="room-tag">Most Popular</div>
+      <div class="room-info">
+        <h3>Jungle Suite Bungalow</h3>
+        <div class="price">From PGK 450 / night · Sleeps 2</div>
+      </div>
+    </div>
+    <div class="room-card">
+      <img class="room-img" src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&q=80" alt="Highlands Cabin">
+      <div class="room-info">
+        <h3>Highlands Cabin</h3>
+        <div class="price">From PGK 320 / night · Sleeps 2</div>
+      </div>
+    </div>
+    <div class="room-card">
+      <img class="room-img" src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=600&q=80" alt="Treetop Room">
+      <div class="room-tag">New</div>
+      <div class="room-info">
+        <h3>Treetop Room</h3>
+        <div class="price">From PGK 280 / night · Sleeps 2</div>
+      </div>
+    </div>
+    <div class="room-card">
+      <img class="room-img" src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Family Lodge">
+      <div class="room-info">
+        <h3>Family Lodge</h3>
+        <div class="price">From PGK 580 / night · Sleeps 5</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCES -->
+<section class="experiences" id="experiences">
+  <div class="section-header reveal">
+    <div class="section-tag" style="justify-content:center; color: var(--gold);">Experiences</div>
+    <h2 style="color: var(--mist);">Beyond the <em style="color: var(--gold-light);">guesthouse</em></h2>
+    <p style="color: rgba(240,236,228,0.45);">Every day at Kokoda Ridge is an opportunity to connect with PNG's extraordinary natural and cultural heritage.</p>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card reveal">
+      <div class="exp-icon">🥾</div>
+      <h3>Kokoda Trail Trekking</h3>
+      <p>Guided multi-day treks through the historic Kokoda Trail with experienced local guides who know every ridge and river crossing.</p>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-icon">🦜</div>
+      <h3>Bird of Paradise Tours</h3>
+      <p>Dawn wildlife walks to observe PNG's iconic Birds of Paradise in their natural highland habitat — a once-in-a-lifetime experience.</p>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-icon">🏺</div>
+      <h3>Village Cultural Tours</h3>
+      <p>Spend a day with our neighbouring village community — witness traditional sing-sings, learn crafts, and share a local meal.</p>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-icon">🌿</div>
+      <h3>Rainforest Canopy Walk</h3>
+      <p>Walk among the treetops on our suspended canopy bridge system, built with local timber and offering views across the valley.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-header reveal">
+    <div class="section-tag" style="justify-content:center;">Guest Voices</div>
+    <h2>What our guests <em>say</em></h2>
+  </div>
+  <div class="test-grid">
+    <div class="test-card reveal">
+      <div class="test-stars">★★★★★</div>
+      <blockquote>"Absolutely the most authentic travel experience I've ever had. The guides were incredible and the jungle bungalow was magical."</blockquote>
+      <div class="test-author">Sarah M. — Australia</div>
+    </div>
+    <div class="test-card reveal">
+      <div class="test-stars">★★★★★</div>
+      <blockquote>"We came for the Kokoda Trail and stayed three extra days because we couldn't leave. PNG hospitality at its finest."</blockquote>
+      <div class="test-author">James K. — New Zealand</div>
+    </div>
+    <div class="test-card reveal">
+      <div class="test-stars">★★★★★</div>
+      <blockquote>"The bird of paradise tour at dawn was worth the entire trip on its own. Beautifully run guesthouse with incredible food."</blockquote>
+      <div class="test-author">Yuki T. — Japan</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section style="background: var(--jungle); padding: 7rem 3rem;" id="booking">
+  <div class="booking">
+    <div class="booking-text reveal">
+      <div class="section-tag">Reserve Your Stay</div>
+      <h2>Your <em>PNG adventure</em><br>starts here</h2>
+      <p>We keep our guesthouse small and our service personal. Availability is limited — we recommend booking at least 4 weeks in advance for peak season visits.</p>
+      <div class="contact-details">
+        <div class="contact-item"><span>📍</span><span>Kokoda, Oro Province, Papua New Guinea</span></div>
+        <div class="contact-item"><span>📞</span><span>+675 7XXX XXXX</span></div>
+        <div class="contact-item"><span>✉️</span><span>stay@kokodaguesthouse.com.pg</span></div>
+        <div class="contact-item"><span>💬</span><span>WhatsApp bookings welcome</span></div>
+      </div>
+    </div>
+    <div class="booking-form reveal">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Check In</label>
+          <input type="date">
+        </div>
+        <div class="form-field">
+          <label>Check Out</label>
+          <input type="date">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Guests</label>
+          <select>
+            <option>1 Guest</option>
+            <option>2 Guests</option>
+            <option>3 Guests</option>
+            <option>4+ Guests</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Room Type</label>
+          <select>
+            <option>Jungle Suite Bungalow</option>
+            <option>Highlands Cabin</option>
+            <option>Treetop Room</option>
+            <option>Family Lodge</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Your Name</label>
+        <input type="text" placeholder="Full name">
+      </div>
+      <div class="form-field">
+        <label>Email or WhatsApp</label>
+        <input type="text" placeholder="How should we contact you?">
+      </div>
+      <button class="btn-primary">Request Booking</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Kokoda Ridge Guesthouse</div>
+  <div class="footer-text">Oro Province · Papua New Guinea · Est. 2019</div>
+  <div class="footer-credit">Website designed by Pean Godfrey — Web Design PNG</div>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Stat animations staggered
+  document.querySelectorAll('.stat-item').forEach((el, i) => {
+    setTimeout(() => el.style.animationDelay = `${i * 0.15}s`, 0);
+  });
+</script>
+</body>
+</html>
