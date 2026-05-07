@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DT Global — Papua New Guinea</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:       #06070a;
+  --s1:       #0e1017;
+  --s2:       #141720;
+  --s3:       #1c2030;
+  --border:   rgba(255,255,255,0.06);
+  --border2:  rgba(255,255,255,0.12);
+  --blue:     #2563eb;
+  --blue-dim: rgba(37,99,235,0.12);
+  --blue-glow:rgba(37,99,235,0.25);
+  --cyan:     #38bdf8;
+  --white:    #eef0f4;
+  --mid:      rgba(238,240,244,0.45);
+  --dim:      rgba(238,240,244,0.2);
+  --red:      #ef4444;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--blue); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+  background: rgba(6,7,10,0.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.logo-mark {
+  width: 34px; height: 34px;
+  background: var(--blue);
+  display: grid; place-items: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem; letter-spacing: 0.05em;
+  color: white;
+  clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 15% 100%, 0 85%);
+}
+.logo-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem; letter-spacing: 0.12em;
+  color: var(--white);
+}
+.logo-text span {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.48rem; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--mid); margin-top: -2px;
+}
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--mid);
+  text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  background: var(--blue); color: white;
+  padding: 0.5rem 1.4rem;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none;
+  clip-path: polygon(0 0, 92% 0, 100% 20%, 100% 100%, 8% 100%, 0 80%);
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.85; }
+
+/* ── HERO ── */
+.hero {
+  margin-top: 64px;
+  min-height: calc(100vh - 64px);
+  position: relative;
+  display: grid; grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+/* left panel */
+.hero-left {
+  position: relative; z-index: 2;
+  background: var(--s1);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 6rem 5rem;
+  border-right: 1px solid var(--border);
+}
+.hero-left::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 20% 50%, var(--blue-dim) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.6rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--cyan); margin-bottom: 2rem;
+}
+.hero-kicker::before {
+  content: '';
+  display: inline-block; width: 6px; height: 6px;
+  background: var(--cyan); border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+.hero-left h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 6vw, 6rem);
+  line-height: 0.95; letter-spacing: 0.03em;
+  color: var(--white);
+  margin-bottom: 2rem;
+}
+.hero-left h1 .accent { color: var(--blue); }
+.hero-left h1 .stroke {
+  -webkit-text-stroke: 1px rgba(255,255,255,0.25);
+  color: transparent;
+}
+.hero-desc {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.1rem; line-height: 1.8;
+  color: var(--mid); max-width: 400px; margin-bottom: 3rem;
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--blue); color: white;
+  padding: 0.85rem 2rem;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none; display: inline-block;
+  clip-path: polygon(0 0, 94% 0, 100% 18%, 100% 100%, 6% 100%, 0 82%);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+.btn-outline {
+  border: 1px solid var(--border2); color: var(--mid);
+  padding: 0.85rem 2rem;
+  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; display: inline-block;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-outline:hover { border-color: var(--blue); color: var(--white); }
+
+/* right panel */
+.hero-right {
+  position: relative; overflow: hidden;
+  background: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&q=80') center/cover;
+}
+.hero-right::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(6,7,10,0.6) 0%, rgba(37,99,235,0.1) 100%);
+}
+.hero-right-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 3rem;
+}
+.hero-stat-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+}
+.hero-stat {
+  background: rgba(6,7,10,0.85);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  border-top: 2px solid var(--blue);
+}
+.hero-stat .num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem; letter-spacing: 0.05em;
+  color: var(--white); line-height: 1;
+}
+.hero-stat .num sup { font-size: 1rem; }
+.hero-stat .lbl {
+  font-size: 0.58rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--mid); margin-top: 0.3rem;
+}
+
+/* globe decoration */
+.globe-ring {
+  position: absolute; top: -80px; right: -80px; z-index: 0;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  border: 1px solid rgba(37,99,235,0.12);
+  animation: rotate 40s linear infinite;
+}
+.globe-ring::before {
+  content: '';
+  position: absolute; inset: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(37,99,235,0.08);
+}
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--blue);
+  padding: 0.7rem 0;
+  overflow: hidden; white-space: nowrap;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.ticker-inner {
+  display: inline-flex; gap: 4rem;
+  animation: ticker 30s linear infinite;
+}
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker-item {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  display: inline-flex; align-items: center; gap: 1rem;
+}
+.ticker-item::after { content: '◆'; font-size: 0.4rem; color: rgba(255,255,255,0.4); }
+
+/* ── SECTION COMMONS ── */
+.section-tag {
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--cyan); display: block; margin-bottom: 0.8rem;
+}
+.section-h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  letter-spacing: 0.04em; line-height: 0.95;
+  color: var(--white);
+}
+.section-h2 em { font-family: 'Crimson Pro', serif; font-style: italic; color: var(--blue); font-size: 1.1em; }
+.section-sub {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem; line-height: 1.8;
+  color: var(--mid); max-width: 480px; margin-top: 1rem;
+}
+
+/* ── FOCUS AREAS ── */
+.focus { padding: 7rem 3rem; background: var(--bg); }
+.focus-header { margin-bottom: 4rem; }
+.focus-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  max-width: 1200px;
+}
+.focus-card {
+  background: var(--s1);
+  padding: 3rem 2.5rem;
+  position: relative; overflow: hidden;
+  cursor: default;
+  transition: background 0.3s;
+}
+.focus-card:hover { background: var(--s2); }
+.focus-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.focus-card:hover::before { transform: scaleX(1); }
+.focus-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem; letter-spacing: 0.05em;
+  color: rgba(37,99,235,0.08); line-height: 1;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s;
+}
+.focus-card:hover .focus-num { color: rgba(37,99,235,0.15); }
+.focus-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+.focus-card h3 {
+  font-size: 1rem; font-weight: 700; letter-spacing: 0.05em;
+  color: var(--white); text-transform: uppercase; margin-bottom: 0.8rem;
+}
+.focus-card p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem; line-height: 1.75; color: var(--mid);
+  margin-bottom: 1.5rem;
+}
+.focus-tag {
+  display: inline-block;
+  font-size: 0.55rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cyan);
+  border: 1px solid rgba(56,189,248,0.25);
+  padding: 0.3rem 0.7rem;
+}
+
+/* ── ABOUT / PRESENCE ── */
+.presence {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--border);
+  min-height: 600px;
+}
+.presence-map {
+  background: var(--s1);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid var(--border);
+  padding: 4rem;
+}
+.presence-map::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, var(--blue-dim) 0%, transparent 70%);
+}
+.world-graphic {
+  position: relative; z-index: 1; text-align: center;
+}
+.world-circle {
+  width: 280px; height: 280px; border-radius: 50%;
+  border: 1px solid rgba(37,99,235,0.2);
+  position: relative; margin: 0 auto 2rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.world-circle::before {
+  content: '';
+  position: absolute; inset: 20px; border-radius: 50%;
+  border: 1px solid rgba(37,99,235,0.12);
+}
+.world-circle::after {
+  content: '';
+  position: absolute; inset: 50px; border-radius: 50%;
+  border: 1px solid rgba(37,99,235,0.08);
+}
+.world-inner {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: var(--blue-dim);
+  border: 1px solid var(--blue-glow);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3rem;
+}
+.dot {
+  position: absolute; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--blue);
+  box-shadow: 0 0 10px var(--blue-glow);
+}
+.dot::after {
+  content: ''; position: absolute; inset: -4px;
+  border-radius: 50%; border: 1px solid rgba(37,99,235,0.3);
+  animation: ping 2s ease-out infinite;
+}
+@keyframes ping {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+.dot-png { top: 65%; right: 18%; animation-delay: 0s; }
+.dot-aus { bottom: 15%; right: 22%; animation-delay: 0.5s; background: var(--cyan); }
+.dot-us  { top: 30%; left: 10%; animation-delay: 1s; }
+.dot-uk  { top: 20%; left: 30%; animation-delay: 1.5s; }
+.dot-sg  { top: 60%; left: 22%; animation-delay: 0.8s; }
+.presence-offices {
+  display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  margin-top: 0;
+}
+.office-tag {
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--mid); border: 1px solid var(--border);
+  padding: 0.3rem 0.8rem;
+}
+.office-tag.hq { border-color: var(--blue); color: var(--cyan); }
+
+.presence-text {
+  background: var(--s2);
+  padding: 6rem 5rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.presence-text .section-h2 { margin-bottom: 1.5rem; }
+.presence-text p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem; line-height: 1.85;
+  color: var(--mid); margin-bottom: 1rem;
+}
+.credentials {
+  margin-top: 2rem;
+  display: flex; flex-direction: column; gap: 0.8rem;
+}
+.cred-item {
+  display: flex; align-items: flex-start; gap: 1rem;
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.03em;
+  color: var(--mid);
+}
+.cred-item::before {
+  content: '✓';
+  color: var(--cyan); font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;
+}
+.presence-text .btn-primary { margin-top: 2rem; align-self: flex-start; }
+
+/* ── IMPACT NUMBERS ── */
+.impact {
+  padding: 7rem 3rem;
+  background: var(--s1);
+  border-top: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.impact::before {
+  content: '';
+  position: absolute; top: -100px; right: -100px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, var(--blue-dim) 0%, transparent 70%);
+  pointer-events: none;
+}
+.impact-layout {
+  display: grid; grid-template-columns: 1fr 2fr;
+  gap: 6rem; max-width: 1200px; align-items: center;
+}
+.impact-nums {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+}
+.impact-cell {
+  background: var(--s2);
+  padding: 2.5rem 2rem; text-align: center;
+  transition: background 0.3s;
+}
+.impact-cell:hover { background: var(--s3); }
+.impact-cell .big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem; letter-spacing: 0.04em;
+  color: var(--blue); line-height: 1;
+}
+.impact-cell .big sup { font-size: 1.5rem; }
+.impact-cell .lbl {
+  font-size: 0.6rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--mid); margin-top: 0.5rem; line-height: 1.5;
+}
+
+/* ── PROGRAMS ── */
+.programs { padding: 7rem 3rem; background: var(--bg); border-top: 1px solid var(--border); }
+.programs-layout {
+  display: grid; grid-template-columns: 300px 1fr;
+  gap: 5rem; max-width: 1200px;
+}
+.programs-sidebar { padding-top: 0.5rem; }
+.programs-sidebar .section-h2 { margin-bottom: 1.5rem; }
+.programs-sidebar .section-sub { margin-bottom: 2rem; }
+.prog-filter {
+  display: flex; flex-direction: column; gap: 0.3rem;
+}
+.prog-filter-btn {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mid); text-align: left;
+  padding: 0.8rem 1rem;
+  border-left: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.prog-filter-btn:hover,
+.prog-filter-btn.active {
+  color: var(--white); border-left-color: var(--blue);
+  background: var(--blue-dim);
+}
+.programs-list {
+  display: flex; flex-direction: column; gap: 1px;
+  background: var(--border);
+}
+.prog-row {
+  background: var(--s1);
+  display: grid; grid-template-columns: 60px 1fr auto;
+  align-items: center; gap: 2rem; padding: 2rem;
+  cursor: pointer; transition: background 0.3s;
+  border-left: 3px solid transparent;
+  transition: all 0.3s;
+}
+.prog-row:hover { background: var(--s2); border-left-color: var(--blue); }
+.prog-row-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem; color: rgba(37,99,235,0.2); letter-spacing: 0.05em; line-height: 1;
+}
+.prog-row-content h3 {
+  font-size: 0.9rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--white); margin-bottom: 0.4rem;
+}
+.prog-row-content p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.9rem; line-height: 1.6; color: var(--mid);
+}
+.prog-row-arrow { color: var(--blue); font-size: 1.2rem; opacity: 0; transition: opacity 0.2s; }
+.prog-row:hover .prog-row-arrow { opacity: 1; }
+
+/* ── PARTNERS ── */
+.partners {
+  padding: 4rem 3rem;
+  background: var(--s1);
+  border-top: 1px solid var(--border);
+}
+.partners-label {
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dim); text-align: center; margin-bottom: 2.5rem;
+}
+.partners-row {
+  display: flex; justify-content: center; align-items: center;
+  gap: 3.5rem; flex-wrap: wrap;
+}
+.partner {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem; letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.1);
+  transition: color 0.3s; cursor: default;
+}
+.partner:hover { color: rgba(255,255,255,0.35); }
+
+/* ── NEWS ── */
+.news { padding: 7rem 3rem; background: var(--bg); border-top: 1px solid var(--border); }
+.news-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 3rem;
+}
+.news-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  gap: 1px; background: var(--border); max-width: 1200px;
+}
+.news-card { background: var(--s1); overflow: hidden; transition: background 0.3s; }
+.news-card:hover { background: var(--s2); }
+.news-img {
+  width: 100%; aspect-ratio: 16/9; object-fit: cover;
+  opacity: 0.7; transition: opacity 0.4s;
+  filter: saturate(0.6);
+}
+.news-card:first-child .news-img { aspect-ratio: 3/2; filter: saturate(0.7); }
+.news-card:hover .news-img { opacity: 0.9; filter: saturate(1); }
+.news-body { padding: 1.8rem; }
+.news-cat {
+  font-size: 0.55rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--cyan); display: block; margin-bottom: 0.7rem;
+}
+.news-body h3 {
+  font-size: 0.88rem; font-weight: 700; letter-spacing: 0.03em;
+  color: var(--white); line-height: 1.4; margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+.news-card:first-child .news-body h3 { font-size: 1.1rem; }
+.news-body p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.9rem; line-height: 1.7; color: var(--mid);
+}
+.news-date { font-size: 0.58rem; color: var(--dim); margin-top: 1rem; display: block; letter-spacing: 0.1em; }
+
+/* ── CTA ── */
+.cta-section {
+  padding: 8rem 3rem;
+  background: var(--s1);
+  border-top: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, var(--blue-dim) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-section .section-tag { justify-content: center; display: flex; }
+.cta-section .section-h2 {
+  font-size: clamp(3rem, 6vw, 6rem);
+  margin: 1rem 0 1.5rem;
+}
+.cta-section .section-sub { margin: 0 auto 3rem; text-align: center; }
+.cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--s1);
+  border-top: 1px solid var(--border);
+  padding: 4rem 3rem 2rem;
+}
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+  padding-bottom: 3rem; margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.footer-brand p {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.9rem; line-height: 1.8; color: var(--dim);
+  margin-top: 1rem; max-width: 270px;
+}
+.footer-brand .logo-text { font-size: 1.1rem; }
+.footer-col h4 {
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 1.3rem;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.footer-col a {
+  font-size: 0.78rem; color: var(--mid); text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--white); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-bottom p { font-size: 0.6rem; color: var(--dim); letter-spacing: 0.05em; }
+.footer-credit { font-size: 0.6rem; color: rgba(37,99,235,0.45); letter-spacing: 0.05em; }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 1.2rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 3.5rem 1.5rem; }
+  .hero-right { min-height: 280px; }
+  .focus-grid { grid-template-columns: 1fr; }
+  .presence { grid-template-columns: 1fr; }
+  .presence-text { padding: 3.5rem 1.5rem; }
+  .impact-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .programs-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .news-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+  .partners-row { gap: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-mark">DT</div>
+    <div class="logo-text">
+      DT Global
+      <span>Papua New Guinea Office</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#focus">Focus Areas</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Partner With Us</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="globe-ring"></div>
+    <div class="hero-kicker">Papua New Guinea · Pacific Region · Since 1996</div>
+    <h1>
+      <span class="stroke">DRIVING</span><br>
+      <span class="accent">DEVELOPMENT</span><br>
+      THAT LASTS
+    </h1>
+    <p class="hero-desc">DT Global partners with governments, donors, and communities across Papua New Guinea to design and deliver programs that build lasting human progress.</p>
+    <div class="hero-actions">
+      <a href="#programs" class="btn-primary">Explore Our Work</a>
+      <a href="#about" class="btn-outline">About DT Global PNG</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-overlay">
+      <div class="hero-stat-row">
+        <div class="hero-stat">
+          <div class="num">28<sup>+</sup></div>
+          <div class="lbl">Years in PNG</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">PGK 2B<sup>+</sup></div>
+          <div class="lbl">Programs Delivered</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">140<sup>+</sup></div>
+          <div class="lbl">Countries Globally</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Education & Workforce Development</span>
+    <span class="ticker-item">Governance & Rule of Law</span>
+    <span class="ticker-item">Health Systems Strengthening</span>
+    <span class="ticker-item">Economic Growth</span>
+    <span class="ticker-item">Infrastructure & Environment</span>
+    <span class="ticker-item">Gender Equality & Social Inclusion</span>
+    <span class="ticker-item">Education & Workforce Development</span>
+    <span class="ticker-item">Governance & Rule of Law</span>
+    <span class="ticker-item">Health Systems Strengthening</span>
+    <span class="ticker-item">Economic Growth</span>
+    <span class="ticker-item">Infrastructure & Environment</span>
+    <span class="ticker-item">Gender Equality & Social Inclusion</span>
+  </div>
+</div>
+
+<!-- FOCUS AREAS -->
+<section class="focus" id="focus">
+  <div class="focus-header reveal">
+    <span class="section-tag">What We Do</span>
+    <h2 class="section-h2">Six focus areas.<br><em>One mission.</em></h2>
+    <p class="section-sub">DT Global brings global expertise and deep local knowledge to every program we design and deliver in Papua New Guinea.</p>
+  </div>
+  <div class="focus-grid reveal">
+    <div class="focus-card">
+      <div class="focus-num">01</div>
+      <div class="focus-icon">🏛️</div>
+      <h3>Governance & Rule of Law</h3>
+      <p class="focus-desc">Strengthening PNG's public institutions, anti-corruption frameworks, and justice systems to ensure accountable, transparent governance at all levels.</p>
+      <span class="focus-tag">DFAT · USAID Funded</span>
+    </div>
+    <div class="focus-card">
+      <div class="focus-num">02</div>
+      <div class="focus-icon">📊</div>
+      <h3>Economic Growth & Trade</h3>
+      <p class="focus-desc">Building PNG's private sector capacity, improving market access for SMEs, and supporting trade facilitation that drives inclusive economic development.</p>
+      <span class="focus-tag">World Bank · ADB</span>
+    </div>
+    <div class="focus-card">
+      <div class="focus-num">03</div>
+      <div class="focus-icon">🎓</div>
+      <h3>Education & Workforce</h3>
+      <p class="focus-desc">Improving learning outcomes, TVET pathways, and workforce readiness so Papua New Guineans can compete in the modern economy.</p>
+      <span class="focus-tag">Australian Aid</span>
+    </div>
+    <div class="focus-card">
+      <div class="focus-num">04</div>
+      <div class="focus-icon">🏥</div>
+      <h3>Health Systems</h3>
+      <p class="focus-desc">Partnering with PNG's National Department of Health to strengthen service delivery, supply chains, and community health outreach programs nationwide.</p>
+      <span class="focus-tag">Global Fund · WHO</span>
+    </div>
+    <div class="focus-card">
+      <div class="focus-num">05</div>
+      <div class="focus-icon">♀️</div>
+      <h3>Gender Equality & GESI</h3>
+      <p class="focus-desc">Mainstreaming gender equality and social inclusion across all DT Global PNG programs, with dedicated initiatives advancing women's leadership and safety.</p>
+      <span class="focus-tag">UN Women · DFAT</span>
+    </div>
+    <div class="focus-card">
+      <div class="focus-num">06</div>
+      <div class="focus-icon">🌿</div>
+      <h3>Environment & Climate</h3>
+      <p class="focus-desc">Supporting PNG communities to adapt to climate change, protect biodiversity, and build resilient infrastructure for a sustainable future.</p>
+      <span class="focus-tag">GEF · Green Climate Fund</span>
+    </div>
+  </div>
+</section>
+
+<!-- GLOBAL PRESENCE -->
+<section class="presence" id="about">
+  <div class="presence-map">
+    <div class="world-graphic">
+      <div class="world-circle">
+        <div class="dot dot-png"></div>
+        <div class="dot dot-aus"></div>
+        <div class="dot dot-us"></div>
+        <div class="dot dot-uk"></div>
+        <div class="dot dot-sg"></div>
+        <div class="world-inner">🌏</div>
+      </div>
+      <div class="presence-offices">
+        <span class="office-tag hq">PNG HQ — Port Moresby</span>
+        <span class="office-tag">Washington DC</span>
+        <span class="office-tag">Canberra</span>
+        <span class="office-tag">London</span>
+        <span class="office-tag">Singapore</span>
+        <span class="office-tag">+135 Countries</span>
+      </div>
+    </div>
+  </div>
+  <div class="presence-text reveal">
+    <span class="section-tag">Global Reach. Local Depth.</span>
+    <h2 class="section-h2">PNG-rooted.<br><em>World-class.</em></h2>
+    <p>DT Global is one of the world's leading international development organisations, operating in over 140 countries. Our Papua New Guinea office has been at the forefront of the country's development for nearly three decades.</p>
+    <p>We bring the weight of global expertise — from Washington to Singapore — with boots-on-the-ground presence and relationships built across every province of PNG.</p>
+    <div class="credentials">
+      <div class="cred-item">Registered with PNG Investment Promotion Authority</div>
+      <div class="cred-item">Preferred partner of DFAT, USAID, World Bank & UN agencies</div>
+      <div class="cred-item">ISO 9001 certified project management systems</div>
+      <div class="cred-item">Full financial transparency & annual public reporting</div>
+      <div class="cred-item">220+ staff across PNG provinces</div>
+    </div>
+    <a href="#contact" class="btn-primary">Partner With DT Global PNG</a>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact">
+  <div class="impact-layout">
+    <div class="reveal">
+      <span class="section-tag">Our Impact</span>
+      <h2 class="section-h2">Numbers<br>don't<br><em>lie.</em></h2>
+      <p class="section-sub" style="margin-top:1.5rem;">Two decades of measurable development impact across Papua New Guinea's most critical sectors.</p>
+    </div>
+    <div class="impact-nums reveal">
+      <div class="impact-cell">
+        <div class="big">2.4M<sup>+</sup></div>
+        <div class="lbl">PNG citizens reached by our programs</div>
+      </div>
+      <div class="impact-cell">
+        <div class="big">340<sup>+</sup></div>
+        <div class="lbl">Active projects across PNG provinces</div>
+      </div>
+      <div class="impact-cell">
+        <div class="big">87%</div>
+        <div class="lbl">PNG national staff — we localise leadership</div>
+      </div>
+      <div class="impact-cell">
+        <div class="big">28yr</div>
+        <div class="lbl">Unbroken operational presence in PNG</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs" id="programs">
+  <div class="programs-layout">
+    <div class="programs-sidebar reveal">
+      <span class="section-tag">Current Programs</span>
+      <h2 class="section-h2">Active<br><em>in PNG</em></h2>
+      <p class="section-sub">From Manus to Milne Bay — our programs operate across every region of Papua New Guinea.</p>
+      <div class="prog-filter">
+        <button class="prog-filter-btn active">All Programs</button>
+        <button class="prog-filter-btn">Governance</button>
+        <button class="prog-filter-btn">Health</button>
+        <button class="prog-filter-btn">Education</button>
+        <button class="prog-filter-btn">Economic Growth</button>
+      </div>
+    </div>
+    <div class="programs-list reveal">
+      <div class="prog-row">
+        <div class="prog-row-num">01</div>
+        <div class="prog-row-content">
+          <h3>PNG Governance Facility — Phase III</h3>
+          <p>Supporting national and subnational government systems to deliver services more effectively across 22 provinces.</p>
+        </div>
+        <div class="prog-row-arrow">→</div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-row-num">02</div>
+        <div class="prog-row-content">
+          <h3>Pacific Women Lead — PNG</h3>
+          <p>Building women's political participation, economic agency, and safety across PNG communities in partnership with DFAT.</p>
+        </div>
+        <div class="prog-row-arrow">→</div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-row-num">03</div>
+        <div class="prog-row-content">
+          <h3>PNG Health Systems Strengthening</h3>
+          <p>Improving supply chain management and frontline health worker capacity across rural PNG health facilities.</p>
+        </div>
+        <div class="prog-row-arrow">→</div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-row-num">04</div>
+        <div class="prog-row-content">
+          <h3>Highlands Economic Corridors Initiative</h3>
+          <p>Connecting highland smallholder farmers and SMEs to markets, finance, and technical support for sustainable growth.</p>
+        </div>
+        <div class="prog-row-arrow">→</div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-row-num">05</div>
+        <div class="prog-row-content">
+          <h3>PNG TVET Workforce Readiness Program</h3>
+          <p>Reforming technical and vocational education to deliver work-ready graduates for PNG's growing resource and services sectors.</p>
+        </div>
+        <div class="prog-row-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<div class="partners">
+  <p class="partners-label">Trusted by Leading Global Development Partners</p>
+  <div class="partners-row">
+    <div class="partner">DFAT Australia</div>
+    <div class="partner">USAID</div>
+    <div class="partner">World Bank</div>
+    <div class="partner">United Nations</div>
+    <div class="partner">Asian Dev Bank</div>
+    <div class="partner">Global Fund</div>
+    <div class="partner">EU</div>
+  </div>
+</div>
+
+<!-- NEWS -->
+<section class="news" id="news">
+  <div class="news-header reveal">
+    <div>
+      <span class="section-tag">Latest</span>
+      <h2 class="section-h2">News &<br><em>Insights</em></h2>
+    </div>
+    <a href="#" class="btn-outline" style="align-self:flex-end;">All Publications →</a>
+  </div>
+  <div class="news-grid reveal">
+    <div class="news-card">
+      <img class="news-img" src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&q=80" alt="">
+      <div class="news-body">
+        <span class="news-cat">Governance</span>
+        <h3>DT Global PNG launches Phase III of the PNG Governance Facility with PGK 180M commitment from DFAT</h3>
+        <p>The expanded program will deepen subnational governance reforms and strengthen service delivery across all 22 provinces through 2028.</p>
+        <span class="news-date">April 2026</span>
+      </div>
+    </div>
+    <div class="news-card">
+      <img class="news-img" src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=600&q=80" alt="">
+      <div class="news-body">
+        <span class="news-cat">Gender & GESI</span>
+        <h3>Pacific Women Lead reaches 50,000 women across PNG highlands communities</h3>
+        <p>The milestone marks a turning point in women's economic participation in PNG's most remote regions.</p>
+        <span class="news-date">March 2026</span>
+      </div>
+    </div>
+    <div class="news-card">
+      <img class="news-img" src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80" alt="">
+      <div class="news-body">
+        <span class="news-cat">Health</span>
+        <h3>New supply chain management system deployed across 148 PNG health facilities</h3>
+        <p>Digital inventory tracking reduces medicine stockouts by an estimated 40% in pilot provinces.</p>
+        <span class="news-date">February 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <span class="section-tag">Work With Us</span>
+  <h2 class="section-h2">Ready to build<br><em>something</em><br>that matters?</h2>
+  <p class="section-sub">Whether you're a donor, government partner, or local organisation — we want to hear from you. DT Global PNG is always looking for new partnerships that drive real impact.</p>
+  <div class="cta-actions">
+    <a href="mailto:png@dtglobal.com" class="btn-primary">Get In Touch</a>
+    <a href="#programs" class="btn-outline">View Our Programs</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <div class="logo-mark">DT</div>
+        <div class="logo-text">DT Global<span>Papua New Guinea</span></div>
+      </div>
+      <p>A global development organisation delivering programs that create lasting change across Papua New Guinea and the Pacific region since 1996.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Focus Areas</h4>
+      <ul>
+        <li><a href="#">Governance & Rule of Law</a></li>
+        <li><a href="#">Economic Growth</a></li>
+        <li><a href="#">Education & TVET</a></li>
+        <li><a href="#">Health Systems</a></li>
+        <li><a href="#">Gender & GESI</a></li>
+        <li><a href="#">Environment</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Organisation</h4>
+      <ul>
+        <li><a href="#">About DT Global</a></li>
+        <li><a href="#">PNG Leadership Team</a></li>
+        <li><a href="#">Annual Reports</a></li>
+        <li><a href="#">Careers in PNG</a></li>
+        <li><a href="#">Procurement</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">Port Moresby, NCD, PNG</a></li>
+        <li><a href="#">png@dtglobal.com</a></li>
+        <li><a href="#">+675 7XXX XXXX</a></li>
+        <li><a href="#">dtglobal.com</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 DT Global PNG. All rights reserved. IPA Registered.</p>
+    <p class="footer-credit">Website designed by Pean Godfrey — Web Design PNG</p>
+  </div>
+</footer>
+
+<script>
+  // Filter buttons
+  document.querySelectorAll('.prog-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.prog-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

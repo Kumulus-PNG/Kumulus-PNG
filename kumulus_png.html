@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kumulus PNG — Web Design by Pean Godfrey</title>
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg:     #05050a;
+  --s1:     #0c0c14;
+  --s2:     #12121e;
+  --s3:     #1a1a2a;
+  --border: rgba(255,255,255,0.06);
+  --b2:     rgba(255,255,255,0.1);
+  --lime:   #c8f53a;
+  --lime2:  #a8d420;
+  --lime-d: rgba(200,245,58,0.08);
+  --lime-g: rgba(200,245,58,0.15);
+  --purple: #7c4dff;
+  --white:  #f0eeff;
+  --mid:    rgba(240,238,255,0.45);
+  --dim:    rgba(240,238,255,0.18);
+}
+
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Cabinet Grotesk',sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  position:fixed; z-index:9999; pointer-events:none;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--lime);
+  transform:translate(-50%,-50%);
+  transition:width 0.2s,height 0.2s,opacity 0.2s;
+  mix-blend-mode:difference;
+}
+.cursor-ring {
+  position:fixed; z-index:9998; pointer-events:none;
+  width:36px; height:36px; border-radius:50%;
+  border:1px solid rgba(200,245,58,0.4);
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s ease,width 0.3s,height 0.3s;
+}
+body:has(a:hover) .cursor { width:20px; height:20px; }
+body:has(a:hover) .cursor-ring { width:60px; height:60px; }
+
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--lime); }
+
+/* NOISE OVERLAY */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.4;
+}
+
+/* NAV */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  height:64px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 3rem;
+  background:rgba(5,5,10,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo {
+  display:flex; align-items:center; gap:0.6rem;
+  font-size:1.1rem; font-weight:900; letter-spacing:-0.02em; color:var(--white);
+  text-decoration:none;
+}
+.nav-logo .dot { color:var(--lime); }
+.nav-links { display:flex; gap:2rem; list-style:none; }
+.nav-links a {
+  font-size:0.75rem; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--mid); text-decoration:none; transition:color 0.2s;
+}
+.nav-links a:hover { color:var(--lime); }
+.nav-actions { display:flex; gap:0.8rem; align-items:center; }
+.btn-nav-ghost {
+  border:1px solid var(--border); color:var(--mid);
+  padding:0.45rem 1.1rem; font-size:0.68rem; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;
+  transition:border-color 0.2s,color 0.2s;
+}
+.btn-nav-ghost:hover { border-color:var(--lime); color:var(--lime); }
+.btn-nav-primary {
+  background:var(--lime); color:var(--bg);
+  padding:0.45rem 1.1rem; font-size:0.68rem; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase; text-decoration:none;
+  transition:background 0.2s,transform 0.2s;
+}
+.btn-nav-primary:hover { background:var(--lime2); transform:translateY(-1px); }
+
+/* HERO */
+.hero {
+  min-height:100vh; padding-top:64px;
+  display:flex; flex-direction:column; justify-content:center;
+  padding-left:3rem; padding-right:3rem;
+  position:relative; overflow:hidden;
+}
+.hero-bg-text {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  font-size:22vw; font-weight:900; letter-spacing:-0.04em;
+  color:rgba(255,255,255,0.015);
+  white-space:nowrap; pointer-events:none; user-select:none;
+  z-index:0;
+}
+.hero-glow {
+  position:absolute; top:-200px; right:-200px;
+  width:600px; height:600px; border-radius:50%;
+  background:radial-gradient(circle, rgba(124,77,255,0.12) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-glow2 {
+  position:absolute; bottom:-100px; left:-100px;
+  width:400px; height:400px; border-radius:50%;
+  background:radial-gradient(circle, rgba(200,245,58,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-inner {
+  position:relative; z-index:2;
+  max-width:1200px; padding:5rem 0;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:0.8rem;
+  font-family:'Geist Mono',monospace;
+  font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--lime); margin-bottom:2.5rem;
+  animation:fadeUp 0.8s ease both;
+}
+.hero-eyebrow::before {
+  content:''; display:block; width:8px; height:8px; border-radius:50%;
+  background:var(--lime); animation:pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+.hero h1 {
+  font-size:clamp(3.5rem,8vw,8.5rem);
+  font-weight:900; line-height:0.92;
+  letter-spacing:-0.03em; color:var(--white);
+  margin-bottom:2.5rem;
+  animation:fadeUp 0.9s 0.1s ease both; opacity:0;
+}
+.hero h1 .serif {
+  font-family:'Instrument Serif',serif;
+  font-style:italic; font-weight:400;
+  color:var(--lime); letter-spacing:-0.02em;
+}
+.hero h1 .outline {
+  -webkit-text-stroke:1.5px rgba(255,255,255,0.2);
+  color:transparent;
+}
+.hero-sub {
+  font-size:1.1rem; font-weight:400; line-height:1.75;
+  color:var(--mid); max-width:520px; margin-bottom:3rem;
+  animation:fadeUp 1s 0.2s ease both; opacity:0;
+}
+.hero-cta-row {
+  display:flex; gap:1rem; flex-wrap:wrap; align-items:center;
+  animation:fadeUp 1s 0.3s ease both; opacity:0;
+}
+.btn-primary {
+  background:var(--lime); color:var(--bg);
+  padding:0.9rem 2.2rem; font-size:0.78rem; font-weight:700;
+  letter-spacing:0.08em; text-transform:uppercase;
+  text-decoration:none; display:inline-block;
+  transition:background 0.2s,transform 0.2s;
+}
+.btn-primary:hover { background:var(--lime2); transform:translateY(-2px); }
+.btn-ghost {
+  border:1px solid var(--b2); color:var(--mid);
+  padding:0.9rem 2.2rem; font-size:0.78rem; font-weight:500;
+  letter-spacing:0.08em; text-transform:uppercase;
+  text-decoration:none; display:inline-block;
+  transition:border-color 0.2s,color 0.2s;
+}
+.btn-ghost:hover { border-color:var(--lime); color:var(--lime); }
+.hero-scroll {
+  position:absolute; bottom:2.5rem; right:3rem; z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+  font-family:'Geist Mono',monospace;
+  font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--dim);
+  animation:fadeUp 1s 0.5s ease both; opacity:0;
+}
+.hero-scroll::after {
+  content:''; display:block; width:1px; height:50px;
+  background:linear-gradient(to bottom, var(--lime), transparent);
+  animation:scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine { 0%,100%{transform:scaleY(1);opacity:1} 50%{transform:scaleY(0.5);opacity:0.4} }
+
+/* MARQUEE */
+.marquee {
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:1rem 0; overflow:hidden; white-space:nowrap;
+  background:var(--s1);
+}
+.marquee-inner {
+  display:inline-flex; gap:3rem;
+  animation:marquee 25s linear infinite;
+}
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.marquee-item {
+  display:inline-flex; align-items:center; gap:1rem;
+  font-family:'Geist Mono',monospace;
+  font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--dim);
+}
+.marquee-item .dot { color:var(--lime); font-size:0.5rem; }
+
+/* SECTION COMMONS */
+.section-label {
+  font-family:'Geist Mono',monospace;
+  font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase;
+  color:var(--lime); display:flex; align-items:center; gap:0.8rem;
+  margin-bottom:1.5rem;
+}
+.section-label::before { content:'['; color:var(--dim); }
+.section-label::after  { content:']'; color:var(--dim); }
+.section-h2 {
+  font-size:clamp(2.5rem,4vw,4.5rem);
+  font-weight:900; line-height:0.92; letter-spacing:-0.03em;
+  color:var(--white);
+}
+.section-h2 em {
+  font-family:'Instrument Serif',serif;
+  font-style:italic; font-weight:400; color:var(--lime);
+}
+.section-sub {
+  font-size:0.95rem; font-weight:400; line-height:1.8;
+  color:var(--mid); max-width:480px; margin-top:1.2rem;
+}
+
+/* ABOUT */
+.about {
+  padding:8rem 3rem;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:6rem; max-width:1400px; margin:0 auto;
+  align-items:center;
+}
+.about-left { position:relative; }
+.about-img-wrap {
+  position:relative;
+  background:var(--s2);
+  aspect-ratio:4/5;
+  overflow:hidden;
+}
+.about-img-wrap::before {
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(135deg, var(--lime-d), transparent);
+  z-index:1;
+}
+.about-img-placeholder {
+  width:100%; height:100%;
+  background:
+    linear-gradient(135deg,var(--s2) 0%,var(--s3) 100%);
+  display:flex; align-items:center; justify-content:center;
+  font-size:6rem; opacity:0.3;
+}
+.about-img-frame {
+  position:absolute; bottom:-1.5rem; right:-1.5rem;
+  width:calc(100% - 2rem); height:calc(100% - 2rem);
+  border:1px solid rgba(200,245,58,0.15);
+  pointer-events:none; z-index:0;
+}
+.about-tag {
+  position:absolute; bottom:2rem; left:-1.5rem; z-index:2;
+  background:var(--lime); color:var(--bg);
+  padding:1rem 1.5rem;
+  font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+}
+.about-right {}
+.about-right .section-h2 { margin-bottom:2rem; }
+.about-right p {
+  font-size:0.95rem; font-weight:400; line-height:1.85;
+  color:var(--mid); margin-bottom:1rem;
+}
+.skills-grid {
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:0.5rem; margin-top:2rem;
+}
+.skill-pill {
+  border:1px solid var(--border);
+  padding:0.6rem 1rem;
+  font-family:'Geist Mono',monospace;
+  font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--mid); display:flex; align-items:center; gap:0.5rem;
+  transition:border-color 0.2s,color 0.2s,background 0.2s;
+}
+.skill-pill:hover { border-color:var(--lime); color:var(--lime); background:var(--lime-d); }
+.skill-pill::before { content:'→'; color:var(--lime); font-size:0.6rem; }
+.about-cta { margin-top:2.5rem; display:flex; gap:1rem; }
+
+/* WORK */
+.work { padding:8rem 3rem; background:var(--s1); border-top:1px solid var(--border); }
+.work-header {
+  display:flex; justify-content:space-between; align-items:flex-end;
+  margin-bottom:4rem; max-width:1400px; margin-left:auto; margin-right:auto;
+}
+.work-grid {
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:1px; background:var(--border);
+  max-width:1400px; margin:0 auto;
+}
+.work-card {
+  background:var(--bg);
+  position:relative; overflow:hidden;
+  aspect-ratio:16/10;
+  cursor:pointer;
+  group:true;
+}
+.work-card-img {
+  width:100%; height:100%; object-fit:cover;
+  filter:saturate(0.3) brightness(0.6);
+  transition:filter 0.5s ease, transform 0.6s ease;
+}
+.work-card:hover .work-card-img {
+  filter:saturate(0.8) brightness(0.8);
+  transform:scale(1.04);
+}
+.work-card-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(5,5,10,0.95) 0%, transparent 60%);
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:2.5rem;
+}
+.work-card-tag {
+  font-family:'Geist Mono',monospace;
+  font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--lime); margin-bottom:0.5rem;
+}
+.work-card-title {
+  font-size:1.5rem; font-weight:800; letter-spacing:-0.02em;
+  color:var(--white); margin-bottom:0.4rem;
+  transition:color 0.2s;
+}
+.work-card:hover .work-card-title { color:var(--lime); }
+.work-card-desc {
+  font-size:0.78rem; font-weight:400; color:var(--mid); line-height:1.5;
+  max-width:360px;
+}
+.work-card-arrow {
+  position:absolute; top:2rem; right:2rem;
+  width:40px; height:40px; border:1px solid var(--b2);
+  display:grid; place-items:center;
+  font-size:1rem; color:var(--mid);
+  transform:translate(10px,-10px);
+  opacity:0; transition:opacity 0.3s, transform 0.3s;
+}
+.work-card:hover .work-card-arrow { opacity:1; transform:translate(0,0); color:var(--lime); border-color:var(--lime); }
+
+/* SERVICES */
+.services { padding:8rem 3rem; background:var(--bg); border-top:1px solid var(--border); }
+.services-inner { max-width:1400px; margin:0 auto; }
+.services-header { display:grid; grid-template-columns:1fr 1fr; gap:4rem; margin-bottom:5rem; align-items:end; }
+.services-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border);
+}
+.service-card {
+  background:var(--s1); padding:3rem 2.5rem;
+  position:relative; overflow:hidden;
+  transition:background 0.3s; cursor:default;
+}
+.service-card:hover { background:var(--s2); }
+.service-card::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--lime),var(--purple));
+  transform:scaleX(0); transform-origin:left; transition:transform 0.4s ease;
+}
+.service-card:hover::after { transform:scaleX(1); }
+.service-card-num {
+  font-family:'Geist Mono',monospace;
+  font-size:0.6rem; letter-spacing:0.2em; color:var(--dim);
+  margin-bottom:2rem;
+}
+.service-card h3 {
+  font-size:1.2rem; font-weight:800; letter-spacing:-0.01em;
+  color:var(--white); margin-bottom:0.8rem;
+}
+.service-card p {
+  font-size:0.82rem; font-weight:400; line-height:1.8;
+  color:var(--mid); margin-bottom:1.5rem;
+}
+.service-price {
+  font-family:'Geist Mono',monospace;
+  font-size:0.65rem; letter-spacing:0.1em;
+  color:var(--lime); border-top:1px solid var(--border);
+  padding-top:1rem; margin-top:auto;
+}
+
+/* PROCESS */
+.process {
+  padding:8rem 3rem;
+  background:var(--s1); border-top:1px solid var(--border);
+}
+.process-inner { max-width:1400px; margin:0 auto; }
+.process-layout {
+  display:grid; grid-template-columns:1fr 2fr;
+  gap:8rem; align-items:start; margin-top:4rem;
+}
+.process-steps { display:flex; flex-direction:column; gap:0; }
+.process-step {
+  display:grid; grid-template-columns:60px 1fr;
+  gap:1.5rem; padding:2.5rem 0;
+  border-bottom:1px solid var(--border);
+  transition:background 0.2s;
+}
+.process-step:last-child { border-bottom:none; }
+.p-step-num {
+  font-family:'Geist Mono',monospace;
+  font-size:0.65rem; letter-spacing:0.15em; color:var(--dim);
+  padding-top:0.2rem;
+}
+.p-step-content h3 {
+  font-size:1rem; font-weight:700; letter-spacing:-0.01em;
+  color:var(--white); margin-bottom:0.5rem;
+}
+.p-step-content p { font-size:0.82rem; font-weight:400; line-height:1.75; color:var(--mid); }
+.process-step:hover .p-step-num { color:var(--lime); }
+
+/* TESTIMONIALS */
+.testimonials { padding:8rem 3rem; background:var(--bg); border-top:1px solid var(--border); }
+.test-inner { max-width:1400px; margin:0 auto; }
+.test-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border); margin-top:4rem;
+}
+.test-card {
+  background:var(--s1); padding:3rem 2.5rem;
+  transition:background 0.3s; position:relative;
+}
+.test-card:hover { background:var(--s2); }
+.test-card::before {
+  content:'"';
+  font-family:'Instrument Serif',serif;
+  font-size:8rem; line-height:0.8;
+  color:rgba(200,245,58,0.05);
+  position:absolute; top:2rem; right:2rem;
+}
+.test-stars { color:var(--lime); font-size:0.75rem; letter-spacing:0.1em; margin-bottom:1.2rem; }
+.test-card blockquote {
+  font-family:'Instrument Serif',serif;
+  font-size:1.05rem; font-style:italic; line-height:1.75;
+  color:var(--mid); margin-bottom:1.8rem;
+}
+.test-author { font-size:0.78rem; font-weight:700; letter-spacing:0.02em; color:var(--white); }
+.test-role { font-family:'Geist Mono',monospace; font-size:0.6rem; letter-spacing:0.12em; color:var(--lime); margin-top:0.2rem; }
+
+/* CONTACT */
+.contact {
+  padding:8rem 3rem;
+  background:var(--s1); border-top:1px solid var(--border);
+  position:relative; overflow:hidden;
+}
+.contact::before {
+  content:'';
+  position:absolute; top:-200px; left:50%;
+  transform:translateX(-50%);
+  width:800px; height:800px; border-radius:50%;
+  background:radial-gradient(circle, rgba(200,245,58,0.04) 0%, transparent 70%);
+  pointer-events:none;
+}
+.contact-inner { max-width:1400px; margin:0 auto; }
+.contact-layout {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:8rem; align-items:start; margin-top:4rem;
+}
+.contact-left {}
+.contact-left .section-h2 { margin-bottom:1.5rem; }
+.contact-left p {
+  font-size:0.95rem; font-weight:400; line-height:1.85;
+  color:var(--mid); margin-bottom:2rem;
+}
+.contact-methods { display:flex; flex-direction:column; gap:1rem; }
+.contact-method {
+  display:flex; align-items:center; gap:1rem;
+  padding:1.2rem 1.5rem;
+  border:1px solid var(--border);
+  transition:border-color 0.2s, background 0.2s;
+  text-decoration:none;
+}
+.contact-method:hover { border-color:var(--lime); background:var(--lime-d); }
+.contact-method-icon { font-size:1.1rem; width:24px; text-align:center; }
+.contact-method-text { font-size:0.8rem; font-weight:500; color:var(--mid); transition:color 0.2s; }
+.contact-method:hover .contact-method-text { color:var(--lime); }
+.contact-method-arrow { margin-left:auto; color:var(--dim); font-size:0.8rem; transition:color 0.2s; }
+.contact-method:hover .contact-method-arrow { color:var(--lime); }
+
+.contact-form { }
+.form-title {
+  font-size:1rem; font-weight:700; letter-spacing:-0.01em;
+  color:var(--white); margin-bottom:1.5rem;
+}
+.form-stack { display:flex; flex-direction:column; gap:0.8rem; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
+.field { display:flex; flex-direction:column; gap:0.4rem; }
+.field label {
+  font-family:'Geist Mono',monospace;
+  font-size:0.55rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--dim);
+}
+.field input,.field select,.field textarea {
+  background:var(--s2); border:1px solid var(--border);
+  color:var(--white); padding:0.85rem 1rem;
+  font-family:'Cabinet Grotesk',sans-serif; font-size:0.85rem; font-weight:400;
+  outline:none; transition:border-color 0.2s; width:100%;
+}
+.field textarea { resize:none; height:110px; }
+.field input:focus,.field select:focus,.field textarea:focus { border-color:var(--lime); }
+.field select option { background:var(--s2); }
+.form-submit {
+  background:var(--lime); color:var(--bg); border:none; cursor:pointer;
+  padding:1rem; width:100%;
+  font-family:'Cabinet Grotesk',sans-serif;
+  font-size:0.78rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+  transition:background 0.2s,transform 0.2s;
+}
+.form-submit:hover { background:var(--lime2); transform:translateY(-1px); }
+
+/* FOOTER */
+footer {
+  background:var(--bg); border-top:1px solid var(--border);
+  padding:3rem 3rem 2rem;
+}
+.footer-top {
+  display:flex; justify-content:space-between; align-items:center;
+  padding-bottom:2rem; margin-bottom:2rem;
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap; gap:2rem;
+}
+.footer-logo {
+  font-size:1.1rem; font-weight:900; letter-spacing:-0.02em; color:var(--white);
+}
+.footer-logo .dot { color:var(--lime); }
+.footer-tagline {
+  font-size:0.78rem; font-weight:400; color:var(--dim); margin-top:0.3rem;
+}
+.footer-links { display:flex; gap:2rem; list-style:none; }
+.footer-links a {
+  font-size:0.72rem; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--mid); text-decoration:none; transition:color 0.2s;
+}
+.footer-links a:hover { color:var(--lime); }
+.footer-cta-group { display:flex; gap:0.8rem; }
+.footer-bottom {
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:1rem;
+}
+.footer-bottom p {
+  font-family:'Geist Mono',monospace;
+  font-size:0.58rem; letter-spacing:0.1em; color:var(--dim);
+}
+.footer-credit {
+  font-family:'Geist Mono',monospace;
+  font-size:0.58rem; letter-spacing:0.1em; color:rgba(200,245,58,0.3);
+}
+
+/* AVAILABILITY BADGE */
+.avail-badge {
+  display:inline-flex; align-items:center; gap:0.6rem;
+  background:rgba(200,245,58,0.08); border:1px solid rgba(200,245,58,0.2);
+  padding:0.5rem 1rem; margin-bottom:1rem;
+  font-family:'Geist Mono',monospace;
+  font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--lime);
+}
+.avail-badge::before {
+  content:''; width:6px; height:6px; border-radius:50%;
+  background:var(--lime); animation:pulse 2s infinite;
+}
+
+/* STAT ROW */
+.stat-row {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  background:var(--s1);
+}
+.stat-cell {
+  padding:2.5rem 2rem; text-align:center;
+  border-right:1px solid var(--border);
+  transition:background 0.3s;
+}
+.stat-cell:last-child { border-right:none; }
+.stat-cell:hover { background:var(--s2); }
+.stat-cell .num {
+  font-size:3rem; font-weight:900; letter-spacing:-0.03em;
+  color:var(--lime); line-height:1;
+}
+.stat-cell .lbl {
+  font-family:'Geist Mono',monospace;
+  font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--mid); margin-top:0.5rem;
+}
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease,transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media(max-width:960px){
+  nav{padding:0 1.2rem} .nav-links{display:none}
+  .hero{padding-left:1.5rem;padding-right:1.5rem}
+  .about{grid-template-columns:1fr;gap:3rem;padding:4rem 1.5rem}
+  .work-grid{grid-template-columns:1fr}
+  .services-header{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .process-layout{grid-template-columns:1fr;gap:3rem}
+  .test-grid{grid-template-columns:1fr}
+  .contact-layout{grid-template-columns:1fr;gap:3rem}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+  .footer-top{flex-direction:column;align-items:flex-start}
+  .form-row{grid-template-columns:1fr}
+  .about-tag{left:0}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Kumulus<span class="dot">.</span>PNG</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#work" class="btn-nav-ghost">View My Work</a>
+    <a href="#contact" class="btn-nav-primary">Get a Quote</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">KUMULUS</div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="avail-badge">Available for new projects — 2026</div>
+    <div class="hero-eyebrow">Port Moresby, Papua New Guinea</div>
+    <h1>
+      Web design that<br>
+      makes PNG<br>
+      <span class="serif">businesses</span><br>
+      <span class="outline">unforgettable</span>
+    </h1>
+    <p class="hero-sub">I'm Pean Godfrey — a web designer and IT professional based in Port Moresby. I build fast, beautiful websites that help PNG small businesses win more clients and look the part.</p>
+    <div class="hero-cta-row">
+      <a href="#work" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-ghost">Get a Free Quote</a>
+      <a href="#contact" class="btn-ghost">Book a Discovery Call</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-inner">
+    <span class="marquee-item">Web Design <span class="dot">◆</span></span>
+    <span class="marquee-item">Mobile Responsive <span class="dot">◆</span></span>
+    <span class="marquee-item">WordPress <span class="dot">◆</span></span>
+    <span class="marquee-item">HTML / CSS <span class="dot">◆</span></span>
+    <span class="marquee-item">SEO Ready <span class="dot">◆</span></span>
+    <span class="marquee-item">Port Moresby Based <span class="dot">◆</span></span>
+    <span class="marquee-item">Fast Delivery <span class="dot">◆</span></span>
+    <span class="marquee-item">PNG Owned <span class="dot">◆</span></span>
+    <span class="marquee-item">Web Design <span class="dot">◆</span></span>
+    <span class="marquee-item">Mobile Responsive <span class="dot">◆</span></span>
+    <span class="marquee-item">WordPress <span class="dot">◆</span></span>
+    <span class="marquee-item">HTML / CSS <span class="dot">◆</span></span>
+    <span class="marquee-item">SEO Ready <span class="dot">◆</span></span>
+    <span class="marquee-item">Port Moresby Based <span class="dot">◆</span></span>
+    <span class="marquee-item">Fast Delivery <span class="dot">◆</span></span>
+    <span class="marquee-item">PNG Owned <span class="dot">◆</span></span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stat-row reveal">
+  <div class="stat-cell"><div class="num">4</div><div class="lbl">Portfolio Projects</div></div>
+  <div class="stat-cell"><div class="num">2</div><div class="lbl">Live Sites Delivered</div></div>
+  <div class="stat-cell"><div class="num">CCNA</div><div class="lbl">Cisco Certified</div></div>
+  <div class="stat-cell"><div class="num">100%</div><div class="lbl">Client Satisfaction</div></div>
+</div>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="work-header reveal">
+    <div>
+      <div class="section-label">Selected Work</div>
+      <h2 class="section-h2">What I've<br><em>built</em></h2>
+    </div>
+    <a href="#contact" class="btn-ghost">Start Your Project →</a>
+  </div>
+  <div class="work-grid reveal">
+    <div class="work-card">
+      <img class="work-card-img" src="https://images.unsplash.com/photo-1596422846543-75c6fc197f11?w=900&q=80" alt="Kokoda Ridge">
+      <div class="work-card-overlay">
+        <div class="work-card-tag">Tourism · Guesthouse</div>
+        <div class="work-card-title">Kokoda Ridge Guesthouse</div>
+        <div class="work-card-desc">Luxury dark-theme website for a PNG highlands guesthouse. Full booking flow, gallery, and experiences showcase.</div>
+      </div>
+      <div class="work-card-arrow">↗</div>
+    </div>
+    <div class="work-card">
+      <img class="work-card-img" src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=80" alt="DT Global">
+      <div class="work-card-overlay">
+        <div class="work-card-tag">International NGO · Development</div>
+        <div class="work-card-title">DT Global PNG</div>
+        <div class="work-card-desc">Global development organisation website with animated stats, program showcase, and donor-grade credibility design.</div>
+      </div>
+      <div class="work-card-arrow">↗</div>
+    </div>
+    <div class="work-card">
+      <img class="work-card-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80" alt="Harbour & Vine">
+      <div class="work-card-overlay">
+        <div class="work-card-tag">Restaurant · Fine Dining</div>
+        <div class="work-card-title">Harbour & Vine</div>
+        <div class="work-card-desc">Port Moresby waterfront restaurant. Interactive menu, reservation system, gallery, and full brand experience.</div>
+      </div>
+      <div class="work-card-arrow">↗</div>
+    </div>
+    <div class="work-card">
+      <img class="work-card-img" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=80" alt="Strongpela Trades">
+      <div class="work-card-overlay">
+        <div class="work-card-tag">Trades · Construction</div>
+        <div class="work-card-title">Strongpela Trades</div>
+        <div class="work-card-desc">Industrial dark-theme site for a PNG trades business. Service showcase, project gallery, and instant quote form.</div>
+      </div>
+      <div class="work-card-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-left reveal">
+    <div class="about-img-wrap">
+      <div class="about-img-placeholder">👨‍💻</div>
+    </div>
+    <div class="about-img-frame"></div>
+    <div class="about-tag">Based in Port Moresby</div>
+  </div>
+  <div class="about-right reveal">
+    <div class="section-label">About Me</div>
+    <h2 class="section-h2">Pean<br><em>Godfrey</em></h2>
+    <p>I'm a recent graduate from Kerevat National High School with a genuine passion for web design and technology. I hold a Cisco CCNA certification and have hands-on experience building real websites and IT infrastructure.</p>
+    <p>I built my school's official website from scratch, set up the computer lab and LAN network, and trained staff and students. Now I'm bringing those skills to PNG's small businesses through Kumulus PNG.</p>
+    <p>My mission is simple — to make world-class web design accessible to Papua New Guinean businesses that deserve to be taken seriously online.</p>
+    <div class="skills-grid">
+      <div class="skill-pill">HTML / CSS</div>
+      <div class="skill-pill">WordPress</div>
+      <div class="skill-pill">Figma</div>
+      <div class="skill-pill">Cisco CCNA</div>
+      <div class="skill-pill">SEO Basics</div>
+      <div class="skill-pill">IT Networking</div>
+    </div>
+    <div class="about-cta">
+      <a href="#contact" class="btn-primary">Work With Me</a>
+      <a href="#contact" class="btn-ghost">Download CV</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="services-header reveal">
+      <div>
+        <div class="section-label">Services</div>
+        <h2 class="section-h2">What I<br><em>offer</em></h2>
+      </div>
+      <p class="section-sub">Every package includes mobile-responsive design, basic on-page SEO, and a handover training session so you can manage your own site.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-card-num">01 / Starter</div>
+        <h3>Starter Site</h3>
+        <p>Perfect for businesses that need a professional online presence fast. Clean, credible, and built to convert visitors into customers.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;">
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> 3–5 pages</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> Mobile responsive</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> Contact form</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> Basic SEO setup</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> 2-week delivery</li>
+        </ul>
+        <div class="service-price">PGK 1,500 – 2,500</div>
+      </div>
+      <div class="service-card" style="border:1px solid rgba(200,245,58,0.2);background:var(--s2);">
+        <div class="service-card-num" style="color:var(--lime);">02 / Business ★ Most Popular</div>
+        <h3>Business Site</h3>
+        <p>A complete online presence with everything a growing PNG business needs to look professional and win clients consistently.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;">
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> 5–8 pages</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> Gallery & blog</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> Social media links</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> Google Maps embed</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> 3-week delivery</li>
+        </ul>
+        <div class="service-price">PGK 2,500 – 4,000</div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-num">03 / Premium</div>
+        <h3>Premium Site</h3>
+        <p>Custom design, advanced functionality, and premium polish for businesses that want to dominate their market online in PNG.</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;">
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> Custom design</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> E-commerce or booking</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> Advanced animations</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> Full SEO package</li>
+          <li style="font-size:0.78rem;color:var(--mid);display:flex;gap:0.5rem;align-items:center;"><span style="color:var(--lime)">✓</span> 4-week delivery</li>
+        </ul>
+        <div class="service-price">PGK 4,000 – 6,000</div>
+      </div>
+    </div>
+    <div style="margin-top:1px;background:var(--s1);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border);flex-wrap:wrap;gap:1rem;" class="reveal">
+      <div>
+        <div style="font-size:0.78rem;font-weight:700;color:var(--white);">Monthly Maintenance</div>
+        <div style="font-size:0.78rem;color:var(--mid);margin-top:0.2rem;">Updates, hosting support, and content changes — keep your site fresh.</div>
+      </div>
+      <div style="font-family:'Geist Mono',monospace;font-size:0.7rem;color:var(--lime);">PGK 300 – 500 / month</div>
+      <a href="#contact" class="btn-primary">Get a Quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="process-inner">
+    <div class="reveal">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-h2">Simple process.<br><em>Real results.</em></h2>
+    </div>
+    <div class="process-layout">
+      <div class="reveal" style="padding-top:0.5rem;">
+        <p class="section-sub">From first conversation to website launch — I keep every step clear, collaborative, and stress-free for you.</p>
+        <div style="margin-top:3rem;display:flex;flex-direction:column;gap:1rem;">
+          <a href="#contact" class="btn-primary" style="text-align:center;">Book a Discovery Call</a>
+          <a href="#contact" class="btn-ghost" style="text-align:center;">Get a Free Quote</a>
+        </div>
+      </div>
+      <div class="process-steps reveal">
+        <div class="process-step">
+          <div class="p-step-num">01</div>
+          <div class="p-step-content">
+            <h3>Discovery Call — Free, 30 Minutes</h3>
+            <p>We talk through your business, your goals, and what you want your website to achieve. No obligation, no cost. I just want to understand what you need.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="p-step-num">02</div>
+          <div class="p-step-content">
+            <h3>Custom Quote Delivered in 48 Hours</h3>
+            <p>You receive a written quote with a clear scope, price, and timeline. No surprises. You decide whether to proceed.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="p-step-num">03</div>
+          <div class="p-step-content">
+            <h3>Design Mockup for Your Approval</h3>
+            <p>Before I write a single line of code, you see exactly how your site will look. We revise until you're 100% happy.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="p-step-num">04</div>
+          <div class="p-step-content">
+            <h3>Build, Review & Launch</h3>
+            <p>I develop your site, you review it, we refine together. When you're ready — we go live. I handle the technical side entirely.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="p-step-num">05</div>
+          <div class="p-step-content">
+            <h3>Handover Training & Ongoing Support</h3>
+            <p>I walk you through your site so you can make basic updates yourself. And I'm always available if you need anything after launch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="test-inner">
+    <div class="reveal">
+      <div class="section-label">What Clients Say</div>
+      <h2 class="section-h2">Built on<br><em>trust</em></h2>
+    </div>
+    <div class="test-grid reveal">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <blockquote>"Pean delivered a website that genuinely impressed our international donors. The design was professional, the process was smooth, and he understood exactly what we needed."</blockquote>
+        <div class="test-author">Agnes Mori</div>
+        <div class="test-role">Director — Community NGO, NCD</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <blockquote>"We had no website at all before Pean. Now we get enquiries every week from the site. Best investment we've made for the business. Worth every kina."</blockquote>
+        <div class="test-author">Thomas Bari</div>
+        <div class="test-role">Owner — Trades Business, Port Moresby</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <blockquote>"What impressed me most was the quality. I didn't expect something this good from a local designer. He's clearly talented and serious about his work."</blockquote>
+        <div class="test-author">Rachel Nana</div>
+        <div class="test-role">Manager — Restaurant, Ela Beach</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-h2">Let's build<br>something <em>great</em><br>for your business</h2>
+    </div>
+    <div class="contact-layout">
+      <div class="contact-left reveal">
+        <p>Whether you're ready to start a project or just want to ask a question — reach out. I respond to every message within 24 hours.</p>
+        <div class="contact-methods">
+          <a href="tel:+67574381320" class="contact-method">
+            <span class="contact-method-icon">📞</span>
+            <span class="contact-method-text">+675 74381320</span>
+            <span class="contact-method-arrow">→</span>
+          </a>
+          <a href="https://wa.me/67574381320" class="contact-method">
+            <span class="contact-method-icon">💬</span>
+            <span class="contact-method-text">WhatsApp — Preferred</span>
+            <span class="contact-method-arrow">→</span>
+          </a>
+          <a href="mailto:peangodfrey01@gmail.com" class="contact-method">
+            <span class="contact-method-icon">✉️</span>
+            <span class="contact-method-text">peangodfrey01@gmail.com</span>
+            <span class="contact-method-arrow">→</span>
+          </a>
+          <a href="#" class="contact-method">
+            <span class="contact-method-icon">📍</span>
+            <span class="contact-method-text">Port Moresby, NCD, Papua New Guinea</span>
+            <span class="contact-method-arrow">→</span>
+          </a>
+        </div>
+        <div style="margin-top:2rem;padding:1.5rem;border:1px solid var(--border);background:var(--lime-d);">
+          <div style="font-family:'Geist Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--lime);margin-bottom:0.5rem;">50% Deposit · 50% on Launch</div>
+          <div style="font-size:0.8rem;color:var(--mid);line-height:1.6;">Simple payment structure — you pay half to start and half when your site goes live. No payment until you see the mockup and approve it.</div>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-title">Send Me a Message</div>
+        <div class="form-stack">
+          <div class="form-row">
+            <div class="field"><label>Your Name</label><input type="text" placeholder="Full name"></div>
+            <div class="field"><label>Phone / WhatsApp</label><input type="text" placeholder="+675"></div>
+          </div>
+          <div class="field"><label>Business Name</label><input type="text" placeholder="Your business name"></div>
+          <div class="form-row">
+            <div class="field">
+              <label>I'm Interested In</label>
+              <select>
+                <option>Get a Free Quote</option>
+                <option>Book a Discovery Call</option>
+                <option>View Portfolio / Ask a Question</option>
+                <option>Monthly Maintenance</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Budget Range</label>
+              <select>
+                <option>Starter — PGK 1,500–2,500</option>
+                <option>Business — PGK 2,500–4,000</option>
+                <option>Premium — PGK 4,000–6,000</option>
+                <option>Not Sure Yet</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label>Tell Me About Your Business</label><textarea placeholder="What does your business do, who are your customers, and what do you want your website to achieve?"></textarea></div>
+          <button class="form-submit">Send Message — I'll Reply Within 24hrs</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">Kumulus<span class="dot">.</span>PNG</div>
+      <div class="footer-tagline">Web Design for Papua New Guinea — by Pean Godfrey</div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-cta-group">
+      <a href="#contact" class="btn-nav-ghost">Book a Call</a>
+      <a href="#contact" class="btn-nav-primary">Get a Quote</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Kumulus PNG. Port Moresby, Papua New Guinea.</p>
+    <p class="footer-credit">Designed & built by Pean Godfrey</p>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',(e)=>{
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  });
+  function animateRing(){
+    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Scroll reveal
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'), i*100);
+    });
+  },{threshold:0.07});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  // Nav scroll opacity
+  window.addEventListener('scroll',()=>{
+    document.querySelector('nav').style.background =
+      window.scrollY>50 ? 'rgba(5,5,10,0.98)' : 'rgba(5,5,10,0.85)';
+  });
+</script>
+</body>
+</html>
